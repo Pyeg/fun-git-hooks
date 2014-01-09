@@ -1,0 +1,46 @@
+#!/opt/local/bin/python
+
+''' This file append what you are listening to, to your git commit messages.
+    First thing to do is to rename it to commit-msg and put it in .git/hooks in your repo
+    Then edit your lastfm_key and lastfm_user strings using info here, http://www.last.fm/api/accounts
+    Now all your commits in that repo will have the new message appended to them.
+''' 
+
+import sys
+import json
+import urllib
+
+from unidecode import unidecode
+
+lastfm_key  = 'YOUR-LASTFM-KEY'
+lastfm_user = 'YOUR-LASTFM-USERNAME'
+
+def listening_msg():
+    params = urllib.urlencode({
+       'method': 'user.getrecenttracks',
+       'api_key': lastfm_key,
+       'format': 'json',
+       'user': lastfm_user
+    })
+    f = urllib.urlopen("http://ws.audioscrobbler.com/2.0/?%s" % params)
+    data = json.loads(f.read())
+    #print data
+    msg = ' [While not listening to anything]'
+    #print data['recenttracks']['track'][0]
+    recent_track = data['recenttracks']['track'][0]
+    if '@attr' in recent_track and 'nowplaying' in recent_track['@attr'] and recent_track['@attr']['nowplaying'] == 'true':
+        msg = ' [While listening to: %s - %s]' % (recent_track['artist']['#text'], recent_track['name'])
+    return unidecode(msg)
+     
+                
+
+def append_msg(msg=' Toz'):
+    filename = sys.argv[1]
+    fd = open(filename,'a')
+    fd.write(msg)
+    fd.close()	
+
+
+msg = listening_msg()
+append_msg(msg)
+
