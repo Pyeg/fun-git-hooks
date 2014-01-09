@@ -13,5 +13,5 @@ This hook appends the name of the song you are listening to, to your git commit 
 - Then open the file and edit your lastfm_key and lastfm_user strings.
 - You can get your last.fm key from here, http://www.last.fm/api/accounts
 
-Now all your commits in that repo will have the new message appended to them.
+Now all your future commits in that repo will have the new message appended to them.
 
