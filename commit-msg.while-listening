@@ -1,4 +1,4 @@
-#!/opt/local/bin/python
+#!/usr/bin/env python
 
 ''' This file append what you are listening to, to your git commit messages.
     First thing to do is to rename it to commit-msg and put it in .git/hooks in your repo
