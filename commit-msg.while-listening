@@ -12,6 +12,7 @@ import urllib
 
 from unidecode import unidecode
 
+# Enter your Last.fm info here
 lastfm_key  = 'YOUR-LASTFM-KEY'
 lastfm_user = 'YOUR-LASTFM-USERNAME'
 
